@@ -3,9 +3,9 @@ export type TProduct = {
   price: number;
   rating: number;
   description: string;
-  category: string;
-  availability: 'a' | 'b';
-  color: string;
-  size: string;
+  stock: number;
+  quantity: number;
+  category: 'Hanging' | 'Indoor' | 'Low' | 'Money' | 'Flowering';
+  availability: 'Instock' | 'Outofstock';
   image: string;
 };

@@ -6,14 +6,22 @@ const productSchema = new Schema<TProduct>(
     price: { type: Number, required: true },
     rating: { type: Number, required: true },
     description: { type: String, required: true },
-    category: { type: String, required: true },
-    availability: {
+    category: {
       type: String,
-      enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
+      enum: ['Hanging', 'Indoor', 'Low', 'Money', 'Flowering'],
       required: true,
     },
-    color: { type: String, required: true },
-    size: { type: String, required: true },
+    stock: {
+      type: Number,
+    },
+    quantity: {
+      type: Number,
+    },
+    availability: {
+      type: String,
+      enum: ['Instock', 'Outofstock'],
+      required: true,
+    },
     image: { type: String, required: true },
   },
   {

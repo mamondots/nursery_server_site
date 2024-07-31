@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { TProduct } from './product.interface';
 import { Product } from './product.model';
 
@@ -12,7 +13,7 @@ const getAllProductInfoDB = async (query: Record<string, unknown>) => {
   if (query?.searchTerm) {
     searchTerm = query?.searchTerm as string;
   }
-  const searchAbleFields = ['title', 'category', 'size'];
+  const searchAbleFields = ['title', 'category', 'description'];
   const searchQuery = Product.find({
     $or: searchAbleFields.map((field) => ({
       [field]: { $regex: searchTerm, $options: 'i' },
@@ -29,16 +30,33 @@ const getAllProductInfoDB = async (query: Record<string, unknown>) => {
   const filterQuery = searchQuery.find(queryObj);
 
   //sort query
-  let sort = '-createdAt';
+  // let sort = '-createdAt';
 
-  if (query.sort) {
-    sort = query.sortBy as string;
+  // if (query.sort) {
+  //   sort = query.sortBy as string;
+  // }
+
+  const sort: any = {};
+
+  if (query.sort === 'asc') {
+    sort.price = 1;
+  } else if (query.sort === 'desc') {
+    sort.price = -1;
   }
+
+  // let sortCriteria: any = {}
+  // if (sortDirction === 0) {
+  //   sortCriteria = {}
+  // } else if (sortDirction === 1) {
+  //   sortCriteria = { price: 1 }
+  // } else if (sortDirction === -1) {
+  //   sortCriteria = { price: -1 }
+  // }
 
   const sortQuery = filterQuery.sort(sort);
 
   //limit and paginision query
-  let limit = 1;
+  let limit = 0;
   let page = 1;
   let skip = 0;
 
