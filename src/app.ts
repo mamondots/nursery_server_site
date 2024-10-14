@@ -3,10 +3,15 @@ const app: Application = express();
 
 import cors from 'cors';
 import { productRouter } from './app/product/product.route';
-import { orderRouter } from './order/order.route';
+import { orderRouter } from './app/order/order.route';
 
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+  }),
+);
 
 app.use('/api', productRouter);
 app.use('/api', orderRouter);
